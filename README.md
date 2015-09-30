@@ -3,9 +3,7 @@ Pay [Work in progress]
 
 Pay is an Elixir Lib to deal with Paypal and other payment solutions. The lib's main goal is to be easy to extend other payment solutions.
 
-You can easily add your behavior to the paypal/similar callback. See examples above:
-
-It also uses Maru to receive the callback from the payment, so you don't need to worry about it. Just add the function that you want to run everytime that a payment is confirmed (or denied).
+It also uses Maru to receive the callback from the payment, so you don't need to worry about it. Just add the function that you want to run everytime that a payment is confirmed (or denied). {TODO}
 
 The API is based on the [ruby SDK version](https://github.com/paypal/PayPal-Ruby-SDK).
 
