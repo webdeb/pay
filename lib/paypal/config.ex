@@ -12,13 +12,13 @@ defmodule Paypal.Config do
 
 	def parse_response(response) do
 		case response do
-		  {:ok, %HTTPoison.Response{status_code: 401,  body: body, headers: _headers}} ->
-		  		{:ok, response} = Poison.decode! body
-		    	{:auth_error, response}
-		  {:ok, %HTTPoison.Response{status_code: _, body: body, headers: _headers}} ->
+			{:ok, %HTTPoison.Response{status_code: 401,  body: body, headers: _headers}} ->
+				{:ok, response} = Poison.decode! body
+				{:auth_error, response}
+			{:ok, %HTTPoison.Response{status_code: _, body: body, headers: _headers}} ->
 				{:ok, Poison.decode! body}
-		  {:error, %HTTPoison.Error{reason: reason}} ->
-		    	{:nok, reason}
+			{:error, %HTTPoison.Error{reason: reason}} ->
+	  		{:nok, reason}
 		end
 
 	end

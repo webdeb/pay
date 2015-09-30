@@ -1,7 +1,7 @@
 defmodule Paypal.Payment do
-	@moduledoc """
-	This module is responsible for handle all payment calls to paypal.
-	"""
+  @moduledoc """
+  This module is responsible for handle all payment calls to paypal.
+  """
   @derive [Poison.Encoder]
   defstruct intent: nil, payer: nil, transactions: nil, id: nil
 
