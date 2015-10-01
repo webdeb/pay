@@ -15,8 +15,8 @@ Contributing
 
 TODO
 ---
-* Remove real calls to the API in the test and mock it.
-* Support all Paypal API, including payment with Paypal (it need a callback URL).
+* Remove test calls to Paypal API and mock it.
+* Support all Paypal API.
 * Add pagar.me support.
 * Add pagseguro support.
 
