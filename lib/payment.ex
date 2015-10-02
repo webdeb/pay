@@ -3,4 +3,5 @@ defprotocol Payment do
   def get_status(id)
   def update_payment(payment)
   def get_payments(payment)
+  def execute_payment(payment)
 end
