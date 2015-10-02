@@ -54,9 +54,14 @@ defimpl Payment, for: Paypal.Payment do
   path  string  String containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
   value object  New value to apply based on the operation. Allowed objects are amount object or shipping_address object.
   For more details see the Paypal Documentation: https://developer.paypal.com/webapps/developer/docs/api/#update-a-payment-resource
+
+  It returns a PID for a Task.
   """
   def update_payment(payment) do
-      HTTPoison.patch(Paypal.Config.url <>  "/payments/payment/" <> payment.id, Poison.encode!(payment.update), Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
+      Task.async fn -> do_update_payment(payment) end
+  end
+  def do_update_payment(payment) do
+    HTTPoison.patch(Paypal.Config.url <>  "/payments/payment/" <> payment.id, Poison.encode!(payment.update), Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
       |> Paypal.Config.parse_response
   end
   @doc """

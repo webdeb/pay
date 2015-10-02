@@ -30,7 +30,7 @@ In your mix file:
 
 ```elixir
 def deps do
-  [{:foobar, git: "https://github.com/era/pay.git"}]
+  [{:pay, git: "https://github.com/era/pay.git"}]
 end
 
 
