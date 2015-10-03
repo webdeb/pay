@@ -87,7 +87,7 @@ defimpl Payment, for: Paypal.Payment do
   end
 
   defp do_execute_payment(payment) do
-    HTTPoison.post(Paypal.Config.url <> "/payments/payment/#{payment.id}", 
+    HTTPoison.post(Paypal.Config.url <> "/payments/payment/#{payment.id}/execute", 
       Poison.econde!(%{payer_id: payment.payer.id, transactions: payment.transactions}),  
       Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
     |> Paypal.Config.parse_response
