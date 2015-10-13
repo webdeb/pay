@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/era/pay.png?label=ready&title=Ready)](https://waffle.io/era/pay)
 Pay [Work in progress]
 ===
 
