@@ -93,4 +93,23 @@ defimpl Payment, for: Paypal.Payment do
     |> Paypal.Config.parse_response
   end
 
+  @doc """
+  Use this call to refund a completed payment. 
+  Provide the sale_id in the URI and an empty JSON payload for a full refund.
+  For partial refunds, you can include an amount.
+  payment muast be:
+  $Paypal.Payment{id: PAYMENT_ID, transactions: [%{total: TOTAL, currency: CURRENCY}]}
+  """
+  def refund(payment) do 
+  end
+
+  defp do_execute_payment(payment) do
+    refund = first(payment.transactions)
+    HTTPoison.post(Paypal.Config.url <> "/payments/sale/#{payment.id}/refund",  
+      Poison.econde!(%{total: refund.total, currency: refund.currency}),  
+      Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
+    |> Paypal.Config.parse_response
+
+  end
+
 end
