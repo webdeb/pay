@@ -104,7 +104,7 @@ defimpl Payment, for: Paypal.Payment do
   end
 
   defp do_execute_payment(payment) do
-    refund = first(payment.transactions)
+    refund = Enum.first(payment.transactions)
     HTTPoison.post(Paypal.Config.url <> "/payments/sale/#{payment.id}/refund",  
       Poison.econde!(%{total: refund.total, currency: refund.currency}),  
       Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
