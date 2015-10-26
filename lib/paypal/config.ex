@@ -11,10 +11,9 @@ defmodule Paypal.Config do
    
 
   def parse_response(response) do
-    IO.puts inspect response
     case response do
       {:ok, %HTTPoison.Response{status_code: 401,  body: body, headers: _headers}} ->
-        {:ok, response} = Poison.decode! body
+        {:ok, response} = Poison.decode body
         {:auth_error, response}
       {:ok, %HTTPoison.Response{status_code: _, body: body, headers: _headers}} ->
         {:ok, Poison.decode! body}
