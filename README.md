@@ -50,7 +50,6 @@ Contributing
 
 TODO
 ---
-* Remove test calls to Paypal API and mock it.
 * Support all Paypal API.
 * Add pagar.me support.
 * Add pagseguro support.
