@@ -28,6 +28,7 @@ defmodule Pay.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [{:maru, "~> 0.7"}, {:httpoison, "~> 0.6"},{:timex, "~> 0.19.5"}, 
+    {:mock, "~> 0.1.1", only: :test},
     {:dogma, "~> 0.0", only: :dev}]
   end
 end
