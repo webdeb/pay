@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/era/pay.png?label=ready&title=Ready)](https://waffle.io/era/pay)
-Pay [Work in progress]
+Pay
 ===
 
 Pay is an Elixir Lib to deal with Paypal and other payment solutions. The lib's main goal is to be easy to extend other payment solutions.
