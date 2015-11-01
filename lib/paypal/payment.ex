@@ -10,6 +10,8 @@ defmodule Paypal.Payment do
   """
   @derive [Poison.Encoder]
   defstruct intent: nil, payer: nil, transactions: nil, id: nil, op: nil, update: nil
+  @type p :: %Paypal.Payment{intent: String.t, payer: any, transactions: list(any), 
+                            id: integer, op: String.t, update: list(any)}
 
 end
 
