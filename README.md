@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/era/pay.png?label=ready&title=Ready)](https://waffle.io/era/pay)
+![](eric.jpeg) 
 Pay
 ===
 
@@ -40,6 +40,9 @@ def application do
 end
 ```
 
+Phoenix + Pay
+----
+If you want an example of how to use it, take a look at [era/extip](http://www.github.com/era/extip). It's a very simple example of how to use pay with Phoenix Apps.
 
 Contributing
 ------------
@@ -48,9 +51,13 @@ Contributing
   * Create your feature branch (`git checkout -b my-new-feature`)
   * Create a Pull Request
 
+
 TODO
 ---
 * Support all Paypal API.
 * Add pagar.me support.
 * Add pagseguro support.
 
+License
+-----
+MIT
