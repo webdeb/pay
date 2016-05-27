@@ -15,6 +15,11 @@ Creating a Payment (you must use the PaypalPayment struct):
 Payment.create_payment(%Paypal.Payment{intent: "authorize", payer: %{"funding_instruments" => [%{"credit_card" => %{"billing_address" => %{"city" => "Saratoga", "country_code" => "US", "line1" => "111 First Street", "postal_code" => "95070", "state" => "CA"}, "cvv2" => "874", "expire_month" => 11, "expire_year" => 2018, "first_name" => "Betsy", "last_name" => "Buyer", "number" => "4417119669820331", "type" => "visa"}}], "payment_method" => "credit_card"}, transactions: [%{"amount" => %{"currency" => "USD", "details" => %{"shipping" => "0.03", "subtotal" => "7.41", "tax" => "0.03"}, "total" => "7.47"}, "description" => "This is the payment transaction description."}]})
 
 ```
+or if using Paypal as the payment method:
+```elixir
+Payment.create_payment(%Paypal.Payment{intent: "authorize", payer: %{"payment_method" => "paypal"}, transactions: [%{"amount" => %{"currency" => "USD", "details" => %{"shipping" => "0.03", "subtotal" => "7.41", "tax" => "0.03"}, "total" => "7.47"}, "description" => "This is the payment transaction description."}]})
+
+```
 
 then add the `pay` to your `config/config.exs`
 ```elixir
@@ -22,9 +27,10 @@ config :pay, type: :paypal
 ```
 And also your key from paypal:
 ```elixir
-config :paypal, client_id: "EOJ2S-Z6OoN_le_KS1d75wsZ6y0SFdVsY9183IvxFyZp",
-              secret: "EClusMEUk8e9ihI7ZdVLF5cZ6y0SFdVsY9183IvxFyZp",
-              env: :prod
+config :pay, :paypal,
+  client_id: "EOJ2S-Z6OoN_le_KS1d75wsZ6y0SFdVsY9183IvxFyZp",
+  secret: "EClusMEUk8e9ihI7ZdVLF5cZ6y0SFdVsY9183IvxFyZp",
+  env: :prod
 ```
 
 In your mix file:
