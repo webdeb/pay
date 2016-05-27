@@ -17,8 +17,17 @@ Payment.create_payment(%Paypal.Payment{intent: "authorize", payer: %{"funding_in
 ```
 or if using Paypal as the payment method:
 ```elixir
-Payment.create_payment(%Paypal.Payment{intent: "authorize", payer: %{"payment_method" => "paypal"}, transactions: [%{"amount" => %{"currency" => "USD", "details" => %{"shipping" => "0.03", "subtotal" => "7.41", "tax" => "0.03"}, "total" => "7.47"}, "description" => "This is the payment transaction description."}]})
-
+# create payment
+payment = Payment.create_payment(%Paypal.Payment{
+  intent: "sale",
+  payer: %{"payment_method" => "paypal"},
+  transactions: [%{"amount" => %{"currency" => "USD", "details" => %{"shipping" => "0.03", "subtotal" => "7.41", "tax" => "0.03"}, "total" => "7.47"}, "description" => "This is the payment transaction description."}],
+  redirect_urls: %{"return_url" => "http://YOUR_RETURN_URL", "cancel_url" => "http://YOUR_CANCEL_URL"}
+})
+approval_url = Enum.find(payment["links"], fn (x) -> x["rel"] == "approval_url" and x["method"] == "REDIRECT" end)
+# redirect user to approval_url["href"]
+# after user has approved the payment, we can execute it on return url call.
+Payment.execute_payment(%Paypal.Payment{id: "PAYMENT_ID_FROM_RETURN_CALL", payer: %{payer_id: "PAYER_ID_FROM_RETURN_CALL"}})
 ```
 
 then add the `pay` to your `config/config.exs`
