@@ -102,7 +102,7 @@ defimpl Payment, for: Paypal.Payment do
   payment muast be:
   $Paypal.Payment{id: PAYMENT_ID, transactions: [%{total: TOTAL, currency: CURRENCY}]}
   """
-  def refund(payment) do
+  def refund(_payment) do
   end
 
   # defp do_execute_payment(payment) do
