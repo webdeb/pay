@@ -9,8 +9,8 @@ defmodule Paypal.Payment do
   update: used at the Payment.update protocol.
   """
   @derive [Poison.Encoder]
-  defstruct intent: nil, payer: nil, transactions: nil, id: nil, op: nil, update: nil
-  @type p :: %Paypal.Payment{intent: String.t, payer: any, transactions: list(any), 
+  defstruct intent: nil, payer: nil, transactions: nil, id: nil, op: nil, update: nil, redirect_urls: nil
+  @type p :: %Paypal.Payment{intent: String.t, payer: any, transactions: list(any), redirect_urls: any,
                             id: integer, op: String.t, update: list(any)}
 
 end
