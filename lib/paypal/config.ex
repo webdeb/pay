@@ -3,12 +3,12 @@ defmodule Paypal.Config do
   @sand_box_url "https://api.sandbox.paypal.com/v1"
 
   def url do
-    case Application.get_env(:paypal, :env) do 
+    case Application.get_env(:pay, :paypal)[:env] do
       :sandbox -> @sand_box_url
       _ -> @api_url
     end
   end
-   
+
 
   def parse_response(response) do
     case response do

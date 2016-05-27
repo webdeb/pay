@@ -105,13 +105,13 @@ defimpl Payment, for: Paypal.Payment do
   def refund(payment) do
   end
 
-  defp do_execute_payment(payment) do
-    refund = Enum.first(payment.transactions)
-    HTTPoison.post(Paypal.Config.url <> "/payments/sale/#{payment.id}/refund",
-      Poison.encode!(%{total: refund.total, currency: refund.currency}),
-      Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
-    |> Paypal.Config.parse_response
+  # defp do_execute_payment(payment) do
+  #   refund = Enum.first(payment.transactions)
+  #   HTTPoison.post(Paypal.Config.url <> "/payments/sale/#{payment.id}/refund",
+  #     Poison.encode!(%{total: refund.total, currency: refund.currency}),
+  #     Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
+  #   |> Paypal.Config.parse_response
 
-  end
+  # end
 
 end
