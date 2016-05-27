@@ -90,7 +90,7 @@ defimpl Payment, for: Paypal.Payment do
 
   defp do_execute_payment(payment) do
     HTTPoison.post(Paypal.Config.url <> "/payments/payment/#{payment.id}/execute", 
-      Poison.econde!(%{payer_id: payment.payer.id, transactions: payment.transactions}),  
+      Poison.encode!(%{payer_id: payment.payer.id}),  
       Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
     |> Paypal.Config.parse_response
   end
@@ -108,7 +108,7 @@ defimpl Payment, for: Paypal.Payment do
   defp do_execute_payment(payment) do
     refund = Enum.first(payment.transactions)
     HTTPoison.post(Paypal.Config.url <> "/payments/sale/#{payment.id}/refund",  
-      Poison.econde!(%{total: refund.total, currency: refund.currency}),  
+      Poison.encode!(%{total: refund.total, currency: refund.currency}),  
       Paypal.Authentication.headers, timeout: :infinity, recv_timeout: :infinity)
     |> Paypal.Config.parse_response
 
