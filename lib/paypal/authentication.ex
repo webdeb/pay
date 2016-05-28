@@ -2,7 +2,7 @@ defmodule Paypal.Authentication do
   @moduledoc """
   This module is responsible to authenticate the lib with paypal.
   """
-  
+
   def start_link(_type, _args) do
     Agent.start_link(fn -> %{token: nil, expires_in: -1} end, name: :token)
   end
@@ -16,20 +16,22 @@ defmodule Paypal.Authentication do
     end
     Agent.get(:token, &(&1))
   end
-  
+
   defp is_expired do
     %{token: _, expires_in: expires } = Agent.get(:token, &(&1))
     :os.timestamp |> Timex.Time.to_secs > expires
   end
 
+  defp get_env(key), do: Application.get_env(:pay, :paypal)[key]
+
   defp request_token do
-    hackney = [basic_auth: {Application.get_env(:paypal, :client_id), Application.get_env(:paypal, :secret)}]
+    hackney = [basic_auth: {get_env(:client_id), get_env(:secret)}]
     HTTPoison.post(Paypal.Config.url <> "/oauth2/token?grant_type=authorization_code", "grant_type=client_credentials", basic_headers, [ hackney: hackney ])
     |> Paypal.Config.parse_response
     |> parse_token
     |> update_token
   end
-  
+
   defp update_token({:ok, access_token, expires_in}) do
     now = :os.timestamp |> Timex.Time.to_secs
     Agent.update(:token, fn _ -> %{token: access_token, expires_in: now + expires_in }  end)
