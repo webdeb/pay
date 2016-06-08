@@ -46,7 +46,7 @@ In your mix file:
 
 ```elixir
 def deps do
-  [{:pay, git: "https://github.com/era/pay.git"}]
+  [{:pay, github: "era/pay"}]
 end
 
 
