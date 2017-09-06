@@ -107,13 +107,13 @@ defimpl Payment, for: Paypal.Payment do
   Use this to get sale information
   https://developer.paypal.com/docs/api/payments/#sale_get
   """
-  def get_sale_details(payment) do
-    Task.async fn -> do_get_sale_details(payment) end
+  def get_sale_details(payment_id) do
+    Task.async fn -> do_get_sale_details(payment_id) end
   end
 
-  defp do_get_sale_details(payment) do
+  defp do_get_sale_details(payment_id) do
     with {:ok, headers} <- Paypal.Authentication.headers(),
-      do: HTTPoison.get(Paypal.Config.url <> "/payments/sale/#{payment.id}", headers, timeout: :infinity, recv_timeout: :infinity)
+      do: HTTPoison.get(Paypal.Config.url <> "/payments/sale/#{payment_id}", headers, timeout: :infinity, recv_timeout: :infinity)
         |> Paypal.Config.parse_response
   end
 
