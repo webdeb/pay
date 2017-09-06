@@ -107,13 +107,18 @@ defimpl Payment, for: Paypal.Payment do
   Use this to get sale information
   https://developer.paypal.com/docs/api/payments/#sale_get
   """
-  def get_sale_details(payment_id) do
-    Task.async fn -> do_get_sale_details(payment_id) end
+  def get_details(payment) do
+    Task.async fn -> do_get_details(payment) end
   end
 
-  defp do_get_sale_details(payment_id) do
+  defp do_get_details(payment) do
+    url = case payment.intent do
+      "sale" -> Paypal.Config.url <> "/payments/sale/#{payment.id}"
+      _ -> raise "only sale is supported"
+    end
+
     with {:ok, headers} <- Paypal.Authentication.headers(),
-      do: HTTPoison.get(Paypal.Config.url <> "/payments/sale/#{payment_id}", headers, timeout: :infinity, recv_timeout: :infinity)
+      do: HTTPoison.get(url, headers, timeout: :infinity, recv_timeout: :infinity)
         |> Paypal.Config.parse_response
   end
 
