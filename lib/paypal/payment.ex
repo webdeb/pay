@@ -104,6 +104,20 @@ defimpl Payment, for: Paypal.Payment do
   end
 
   @doc """
+  Use this to get sale information
+  https://developer.paypal.com/docs/api/payments/#sale_get
+  """
+  def get_sale_details(payment) do
+    Task.async fn -> do_get_sale_details(payment) end
+  end
+
+  defp do_get_sale_details(payment) do
+    with {:ok, headers} <- Paypal.Authentication.headers(),
+      do: HTTPoison.get(Paypal.Config.url <> "/payments/sale/#{payment.id}", headers, timeout: :infinity, recv_timeout: :infinity)
+        |> Paypal.Config.parse_response
+  end
+
+  @doc """
   Use this call to refund a completed payment.
   Provide the sale_id in the URI and an empty JSON payload for a full refund.
   For partial refunds, you can include an amount.
