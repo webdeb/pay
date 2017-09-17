@@ -113,13 +113,20 @@ defimpl Payment, for: Paypal.Payment do
 
   defp do_get_details(payment) do
     url = case payment.intent do
-      "sale" -> Paypal.Config.url <> "/payments/sale/#{payment.id}"
+      "sale" -> get_sale_url(payment)
       _ -> raise "only sale is supported"
     end
 
     with {:ok, headers} <- Paypal.Authentication.headers(),
       do: HTTPoison.get(url, headers, timeout: :infinity, recv_timeout: :infinity)
         |> Paypal.Config.parse_response
+  end
+
+  defp get_sale_url(payment) do
+    payment.transactions
+    |> Enum.at(0) |> Map.get(:related_resources) |> Enum.at(0)
+    |> Map.get(:sale) |> Map.get(:links)
+    |> Enum.find_value(fn link -> link.rel == "self" && link.href end)
   end
 
   @doc """
