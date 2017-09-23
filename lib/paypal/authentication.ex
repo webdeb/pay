@@ -48,6 +48,7 @@ defmodule Paypal.Authentication do
   @doc """
   Auth Headers needed to make a request to paypal.
   """
+
   def headers do
     case authorization_header() do
       {:ok, auth_header} -> {:ok, Enum.concat(request_headers(), auth_header)}
