@@ -28,7 +28,13 @@ defmodule Paypal.Authentication do
     :os.timestamp |> Duration.from_erl |> Duration.to_seconds > expires
   end
 
-  defp get_env(key), do: Application.get_env(:pay, :paypal)[key]
+  defp get_env(key) do
+    case Application.get_env(:pay, :paypal)[key] do
+      nil -> raise "Expected #{key} to be set"
+      {:system, var} -> System.get_env(var) || raise "Expected #{var} to be set"
+      value -> value
+    end
+  end
 
   defp request_token do
     hackney = [basic_auth: { get_env(:client_id), get_env(:secret) }]
