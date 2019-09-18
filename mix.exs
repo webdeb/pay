@@ -2,12 +2,14 @@ defmodule Pay.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :pay,
-     version: "0.1.4",
-     elixir: "~> 1.5",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+    [
+      app: :pay,
+      version: "0.1.4",
+      elixir: "~> 1.8",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -27,9 +29,12 @@ defmodule Pay.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:maru, "~> 0.7"},
-    {:httpoison, "~> 0.8"},
-    {:mock, "~> 0.1.1", only: :test},
-    {:dogma, "~> 0.0", only: :dev}]
+    [
+      {:maru, "~> 0.7"},
+      {:httpoison, "~> 1.0"},
+      {:poison, "~> 4.0"},
+      {:jason, "~> 1.1"},
+      {:mock, "~> 0.1.1", only: :test},
+      {:dogma, "~> 0.0", only: :dev}
+    ]
   end
-end

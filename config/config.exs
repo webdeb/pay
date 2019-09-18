@@ -23,4 +23,6 @@ use Mix.Config
 #
 #     import_config "#{Mix.env}.exs"
 
-import_config "#{Mix.env}.exs"
+config :maru, :json_library, Jason
+
+import_config "#{Mix.env()}.exs"
