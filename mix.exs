@@ -30,7 +30,7 @@ defmodule Pay.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:maru, "~> 0.7"},
+      {:maru, "~> 0.13"},
       {:httpoison, "~> 1.0"},
       {:poison, "~> 4.0"},
       {:jason, "~> 1.1"},
